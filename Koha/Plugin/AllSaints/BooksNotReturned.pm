@@ -1,4 +1,4 @@
-package Koha::Plugin::Com::ByWaterSolutions::LastPatronActivity;
+package Koha::Plugin::AllSaints::BooksNotReturned;
 
 ## It's good practive to use Modern::Perl
 use Modern::Perl;
@@ -16,17 +16,18 @@ use Koha::Database;
 use Text::CSV::Slurp;
 
 ## Here we set our plugin version
-our $VERSION = "{VERSION}";
+#our $VERSION = "{VERSION}";
+our $VERSION = "1.0";
 
 ## Here is our metadata, some keys are required, some are optional
 our $metadata = {
-    name   => 'Last Patron Activity',
-    author => 'Kyle M Hall, ByWater Solutions',
+    name   => 'Books Not Returned',
+    author => 'Stephen Gaito on behalf of All Saints CofE school',
     description =>
-'This report lists the last the date of a patrons last activity for all patrons enrolled within a given date range.',
-    date_authored   => '2009-01-27',
-    date_updated    => '2009-01-27',
-    minimum_version => '3.16000000',
+'This report lists the books currently check out.',
+    date_authored   => '2023-10-03',
+    date_updated    => '2023-10-03',
+    minimum_version => '23.05.04.000',
     maximum_version => undef,
     version         => $VERSION,
 };
