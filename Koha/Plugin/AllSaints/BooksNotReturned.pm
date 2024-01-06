@@ -84,10 +84,6 @@ sub report_step1 {
 
     my $template = $self->get_template( { file => 'report-step1.tt' } );
 
-    $template->param(
-        current_branch   => C4::Context->userenv->{branch},
-    );
-
     print $cgi->header();
     print $template->output();
 }
@@ -98,39 +94,42 @@ sub report_step2 {
 
     my $dbh = C4::Context->dbh;
 
-    my $branch   = $cgi->param('branch');
-    my $category = $cgi->param('categorycode');
     my $output   = $cgi->param('output');
 
-    my $from = dt_from_string( $cgi->param('from') )->ymd();
-    my $to   = dt_from_string( $cgi->param('to') )->ymd();
+    # Create the query
+    my $query = <<'END_STATEMENT';
+SELECT
+ categories.description AS className,
+ CONCAT(firstname, ' ', surname) AS pupilName,
+ GROUP_CONCAT(biblio.title) AS bookTitle,
+ DATE_FORMAT(issuedate, '%Y %b %e') AS dateIssued,
+ DATEDIFF(CURDATE(), issuedate) DIV 7 AS weeksOut,
+ DATE_FORMAT(date_due, '%Y %b %e') AS dateDue,
+ DATEDIFF(CURDATE(), date_due) AS daysOverdue
+FROM borrowers
+JOIN issues USING (borrowernumber)
+JOIN items USING (itemnumber)
+JOIN biblio USING (biblionumber)
+JOIN categories USING (categorycode)
+GROUP BY categorycode,date_due,firstname,surname
+END_STATEMENT
 
-    my $params;
-    $params->{branchcode}   = $branch   if $branch;
-    $params->{categorycode} = $category if $category;
-    $params->{dateenrolled} = { '>=' => $from, '<=' => $to };
+    # Prepare and execute the query
+    my $sth = $dbh->prepare($query);
+    $sth->execute();
 
-    my $schema = Koha::Database->new()->schema();
-    #$schema->storage->debug(1);
-
-    my @borrowers = $schema->resultset('Borrower')->search(
-        $params,
-        {
-            order_by     => 'cardnumber',
-            result_class => 'DBIx::Class::ResultClass::HashRefInflator',
-        }
-    );
-
-    my $query = "SELECT datetime FROM statistics WHERE borrowernumber = ? ORDER BY datetime DESC LIMIT 1";
-
-    map { ( $_->{last_activity} ) = $dbh->selectrow_array( $query, undef, $_->{borrowernumber} ) } @borrowers;
+    my @booksOut = ();
+    while (my %aRow = $sth->fetchrow_hashref()) {
+      push(@booksOut, \%aRow);
+    }
 
     my $filename;
     if ( $output eq "csv" ) {
-        print $cgi->header( -attachment => 'borrowers.csv' );
-        print Text::CSV::Slurp->create( input => \@borrowers );
-    }
-    else {
+        print $cgi->header( -attachment => 'booksOut.csv' );
+        print Text::CSV::Slurp->create( input => \@booksOut );
+    } elsif ( $output eq "pdf") {
+      # don't do anything at the moment...
+    } else {
         print $cgi->header();
         $filename = 'report-step2-html.tt';
 
@@ -138,10 +137,7 @@ sub report_step2 {
 
         my $library = Koha::Libraries->find($branch);
         $template->param(
-            date_ran     => output_pref(dt_from_string),
-            results_loop => \@borrowers,
-            branch       => $library->branchname,
-            category     => $category,
+            results_loop => \@booksOut,
         );
 
         print $template->output();
