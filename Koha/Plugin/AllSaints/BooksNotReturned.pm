@@ -135,7 +135,6 @@ END_STATEMENT
 
         my $template = $self->get_template( { file => $filename } );
 
-        my $library = Koha::Libraries->find($branch);
         $template->param(
             results_loop => \@booksOut,
         );
