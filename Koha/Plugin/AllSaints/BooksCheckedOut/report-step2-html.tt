@@ -1,6 +1,6 @@
 [% USE KohaDates %]
 [% INCLUDE 'doc-head-open.inc' %]
- <title>Koha: Patron Last Activity Plugin: Report: Patron List</title>
+ <title>Koha: Books checked out : Report</title>
  <script type="text/javascript" src="[% PLUGIN_PATH %]/datepicker/js/datepicker.js"></script>
  <link href="[% PLUGIN_PATH %]/datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
 [% INCLUDE 'doc-head-close.inc' %]
@@ -9,7 +9,7 @@
 [% INCLUDE 'header.inc' %]
 [% INCLUDE 'cat-search.inc' %]
 
-<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Patron Last Activity &rsaquo; Report &rsaquo; Output</div>
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Books checked out &rsaquo; Report</div>
 
 <div id="doc3">
 
@@ -29,11 +29,11 @@
     [% FOREACH r IN results_loop %]
       <tr>
         <td>[% r.className %]</td>
-        <td>[% r.pupilName %]</td>
-        <td>[% r.bookTitle %]</td>
+        <td><a target="_blank" href="/cgi-bin/koha/members/moremember.pl?borrowernumber=[% r.borrowerNumber %]">[% r.pupilName %]</a></td>
+        <td><a target="_blank" href="/cgi-bin/koha/catalogue/detail.pl?biblionumber=[% r.biblioNumber %]">[% r.bookTitle %]</a></td>
         <td>[% r.dateIssued %]</td>
         <td>[% r.weeksOut %]</td>
-        <td>[% r.dateDue %]</td>
+        <td><span [% IF 0 < r.daysOverdue %]style="color:red;font-weight:700"[% END %]>[% r.dateDue %]</span></td>
       </tr>
     [% END %]
   </tbody>

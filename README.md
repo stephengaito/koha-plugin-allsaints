@@ -1,6 +1,7 @@
-# Books not returned plugin for Koha
+# Books checked out plugin for Koha
 
-This plugin lists the partons and their books which have not yet been returned.
+This plugin lists the partons and their books which are currently checked
+out.
 
 It is typically run at each half term.
 
