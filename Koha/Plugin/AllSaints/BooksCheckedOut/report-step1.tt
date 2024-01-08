@@ -1,7 +1,7 @@
 [% USE Branches %]
 [% USE Categories %]
 [% INCLUDE 'doc-head-open.inc' %]
- <title>Koha: Books checked out : Setup</title>
+ <title>Koha: Books checked out : Choose format</title>
  <script type="text/javascript" src="[% PLUGIN_PATH %]/datepicker/js/datepicker.js"></script>
  <link href="[% PLUGIN_PATH %]/datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
 [% INCLUDE 'doc-head-close.inc' %]
@@ -11,7 +11,7 @@
 [% INCLUDE 'header.inc' %]
 [% INCLUDE 'cat-search.inc' %]
 
-<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Books checked out &rsaquo; Setup</div>
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Books checked out &rsaquo; Choose format</div>
 
 <div id="doc3">
     <h3>Books checked out</h3>
@@ -22,16 +22,16 @@
         <input type="hidden" name="method" value="[% METHOD %]"/>
 
         <fieldset class="rows">
-            <legend>Output</legend>
+            <legend>Report format</legend>
 
             <ol>
 
                 <li>
-                    <label for="output">Output Data to:</label>
+                    <label for="output">Send report to:</label>
                     <select name="output">
-                        <option value="screen">Screen</option>
+                        <option value="screen">Browser</option>
                         <option value="pdf">PDF File</option>
-                        <option value="csv">CSV File</option>
+                        <option value="csv">Spreadsheet (CSV)) File</option>
                     </select>
                 </li>
 
@@ -39,7 +39,7 @@
         </fieldset>
 
         <fieldset class="action">
-            <input class="btn" type="submit" />
+            <input class="btn" type="submit" value="Click here to get the report" />
         </fieldset>
 
     </form>

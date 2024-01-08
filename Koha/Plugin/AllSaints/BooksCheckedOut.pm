@@ -164,7 +164,7 @@ END_STATEMENT
       my $pdfWidth       = 842;
       my $pdfHeight      = 595;
       my $pdfTopMargin   = 570;
-      my $pdfLeftMargin  = 10;
+      my $pdfLeftMargin  = 25;
       my $pdfSmallLine   = 10;
       my $pdfHRuleLength = 800;
 
@@ -251,7 +251,7 @@ END_STATEMENT
           # Add the class name
           $classPageNum = 1 if ($lastClass ne $curClass);
           $text->text("$curClass ");
-          $text->fill_color('#C0C0C0');
+          $text->fill_color('#808080');
           $text->text("($pdfToday ; page $classPageNum)");
           $text->fill_color('#000000');
           newLine($text);
