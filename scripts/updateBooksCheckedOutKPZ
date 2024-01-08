@@ -1,0 +1,20 @@
+#!/bin/bash
+
+baseFileName=$(date +booksCheckedOut_%Y_%m_%d)
+
+echo ""
+echo "creating: ${baseFileName}.kpz"
+echo ""
+
+
+rm -rf kpz/${baseFileName}.zip kpz/${baseFileName}.kpz
+
+zip -r kpz/${baseFileName}.zip \
+  Koha/Plugin/AllSaints/BooksCheckedOut \
+  Koha/Plugin/AllSaints/BooksCheckedOut.pm
+
+mv kpz/${baseFileName}.zip kpz/${baseFileName}.kpz
+
+echo ""
+echo done
+echo ""

@@ -1,0 +1,6 @@
+# We want to keep this directory but nothing in it other than .gitignore
+
+*
+
+!.gitignore
+!Readme.md

@@ -1,21 +1,40 @@
 # Books checked out plugin for Koha
 
-This plugin lists the partons and their books which are currently checked
-out.
+This plugin lists the pupils and the books which they have currently
+checked out.
 
-It is typically run at each half term.
+Any books which are overdue are listed with the due date in RED.
 
-## Download
+This report also records when a pupil checked out the book and how many
+weeks they have had the book checked out.
 
-From the [release
-page](https://github.com/bywatersolutions/koha-plugin-patron-last-activity/releases)
-you can download the relevant .kpz file
+This report is typically run at each half term.
+
+## Creating your own Koha Plugin Zip (KPZ) file
+
+To create your own Koha Plugin Zip file, clone this repository and then
+inside the cloned repository, in a Linux command line terminal, type:
+
+```
+  ./scripts/updateBooksCheckedOutKPZ
+
+```
+
+The resulting KPZ file will be found in the `kpz` directory.
 
 ## Installation
 
-This plugin requires the perl library Text::CSV::Slurp. The plugin will
-not show as installed until this library has been installed on your
-server.
+This plugin requires the Perl libraries:
+
+- [Text::CSV::Slurp](https://metacpan.org/pod/Text::CSV::Slurp)
+
+- [PDF::API2](https://metacpan.org/pod/PDF::API2)
+
+To install these plugins, you can follow the `Install Instructions` link
+in the web pages listed above.
+
+You *must* install these Perl libraries *before* uploading and installing
+this plugin in Koha.
 
 ## License
 
