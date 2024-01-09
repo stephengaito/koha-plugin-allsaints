@@ -1,0 +1,20 @@
+#!/bin/bash
+
+baseFileName=$(date +classLists_%Y_%m_%d)
+
+echo ""
+echo "creating: ${baseFileName}.kpz"
+echo ""
+
+
+rm -rf kpz/${baseFileName}.zip kpz/${baseFileName}.kpz
+
+zip -r kpz/${baseFileName}.zip \
+  Koha/Plugin/AllSaints/ClassLists \
+  Koha/Plugin/AllSaints/ClassLists.pm
+
+mv kpz/${baseFileName}.zip kpz/${baseFileName}.kpz
+
+echo ""
+echo done
+echo ""
