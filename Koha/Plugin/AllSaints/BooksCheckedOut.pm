@@ -273,7 +273,7 @@ END_STATEMENT
 
         # Add a single row of information
         foreach my $colno (1..$#columnNames) {
-          if ( ($colno == 5) && (0 < $booksOut[$row]{daysOverdue})) {
+          if ( ($colno == 5) && (7 < $booksOut[$row]{daysOverdue})) {
             $text->fill_color('#FF0000');
           }else{
             $text->fill_color('#000000');

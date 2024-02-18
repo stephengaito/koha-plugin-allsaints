@@ -33,7 +33,7 @@
         <td><a target="_blank" href="/cgi-bin/koha/catalogue/detail.pl?biblionumber=[% r.biblioNumber %]">[% r.bookTitle %]</a></td>
         <td>[% r.dateIssued %]</td>
         <td>[% r.weeksOut %]</td>
-        <td><span [% IF 0 < r.daysOverdue %]style="color:red;font-weight:700"[% END %]>[% r.dateDue %]</span></td>
+        <td><span [% IF 7 < r.daysOverdue %]style="color:red;font-weight:700"[% END %]>[% r.dateDue %]</span></td>
       </tr>
     [% END %]
   </tbody>
